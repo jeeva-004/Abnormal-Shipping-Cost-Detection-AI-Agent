@@ -1,0 +1,5 @@
+pandas>=2.0
+numpy>=1.24
+ollama>=0.4
+chromadb>=0.5
+pytest>=8.0
