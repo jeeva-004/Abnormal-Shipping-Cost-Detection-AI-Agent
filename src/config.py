@@ -28,3 +28,14 @@ MIN_PRIOR_WEEKS = 4      # no flags until a route has this much history
 RISE_PCT = 7.0           # "rising": at least +7% vs own trailing history
 PEER_GAP_PCT = 20.0      # "out of ordinary": at least +20% vs similar routes
 STRONG_RISE_PCT = 15.0   # ...or a big jump vs own history regardless of peers
+# Stage 3: evidence layer
+ALL_ROUTES = "All Routes"
+EFFECT_PERSISTENCE_WEEKS = 8     # open-ended notes explain at most this many weeks
+MAGNITUDE_TOLERANCE_PCT = 3.0    # slack when a note quotes a % range
+RETRIEVAL_K = 5
+PROMPT_VERSION = "v1"            # bump to invalidate the LLM cache
+NOTES_GOLD_CSV = DATA_DIR / "notes_gold.csv"
+
+# Stage 4: output
+NEAR_NOTE_DAYS = 14      # cite the closest note in an unexplained reason only if this close
+RESULTS_CSV = OUTPUT_DIR / "results.csv"

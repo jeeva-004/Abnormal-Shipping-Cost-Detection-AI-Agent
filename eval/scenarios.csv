@@ -1,0 +1,12 @@
+name,route,week_of,vs_own_pct,vs_peer_pct,expected_verdict,expected_note_id
+diesel_in_window,Mumbai-Pune,2025-05-12,6.5,8.0,justified,N003
+diesel_window_expired,Mumbai-Pune,2025-09-15,6.5,8.0,unexplained,
+diesel_too_small_for_big_rise,Delhi-Jaipur,2025-05-12,25.0,10.0,unexplained,
+diesel_cannot_explain_peer_gap,Mumbai-Pune,2025-05-12,6.5,25.0,unexplained,
+flood_note_wrong_route,Mumbai-Pune,2025-02-24,30.0,30.0,unexplained,
+no_effect_maintenance_note,Mumbai-Delhi,2024-07-29,20.0,20.0,unexplained,
+festival_note_wrong_route,Mumbai-Pune,2025-01-20,29.0,22.0,unexplained,
+festival_note_week_after,Ahmedabad-Mumbai,2025-01-27,29.0,22.0,unexplained,
+toll_note_not_in_dataset,Delhi-Chennai,2024-03-11,20.0,20.0,unexplained,
+flood_partial_week_overlap,Chennai-Bangalore,2025-03-03,22.0,32.0,justified,N001
+diesel_other_route_in_window,Kolkata-Bhubaneswar,2025-05-26,7.5,5.0,justified,N003
