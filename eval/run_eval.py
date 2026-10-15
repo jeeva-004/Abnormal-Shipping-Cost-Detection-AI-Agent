@@ -3,10 +3,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pandas as pd  # noqa: E402
+import pandas as pd 
 
-from src import config, flagging, gate, metrics, notes, pipeline  # noqa: E402
-from src.retrieval import NoteIndex  # noqa: E402
+from src import config, flagging, gate, metrics, notes, pipeline 
+from src.retrieval import NoteIndex 
 
 EVAL_DIR = Path(__file__).resolve().parent
 use_cache = "--no-cache" not in sys.argv
@@ -18,14 +18,14 @@ def check(name, ok, detail=""):
     print(f"  [{'PASS' if ok else 'FAIL'}] {name}" + (f"  -> {detail}" if detail else ""))
 
 
-# ---------- shared setup ----------
+#shared setup
 enriched = notes.enrich_notes(notes.load_notes_csv(), use_cache=use_cache)
 by_id = {n.note_id: n for n in enriched}
 index = NoteIndex(enriched, lambda t: notes.embed_texts(t, use_cache=use_cache))
 weekly = flagging.flag_candidates(metrics.build_metrics())
 results = pipeline.build_results(weekly[weekly["is_candidate"]], by_id, index)
 
-# ---------- 1. notes vs hand labels ----------
+#notes vs hand labels
 print("\n[1] Note understanding vs hand labels")
 gold_notes = pd.read_csv(config.NOTES_GOLD_CSV).set_index("note_id")
 llm_hits = sum(n.llm_effect == gold_notes.loc[n.note_id, "gold_effect"] for n in enriched)
@@ -46,7 +46,7 @@ for n in enriched:
             bad_win.append(n.note_id)
 check("effective windows parsed correctly", not bad_win, str(bad_win))
 
-# ---------- 2. end-to-end rows vs hand labels ----------
+#end-to-end rows vs hand labels
 print("\n[2] Results vs hand-labeled rows (regression check: labels are my reading of the data)")
 gold = pd.read_csv(EVAL_DIR / "gold_rows.csv", keep_default_na=False)
 for g in gold.itertuples():
@@ -63,7 +63,7 @@ actual_set = set(zip(results["route"], results["week_of"]))
 check("flagged set is exactly the expected 13 rows", expected_set == actual_set,
       f"extra={sorted(actual_set - expected_set)} missing={sorted(expected_set - actual_set)}")
 
-# ---------- 3. the supplied sample rows (independent truth) ----------
+#the supplied sample rows (independent truth)
 print("\n[3] The 3 rows in sample_output_format_v2.csv (numbers, flag, note id)")
 lines = config.SAMPLE_OUTPUT_CSV.read_text(encoding="utf-8").splitlines()
 cols = lines[0].split(",")
@@ -78,7 +78,7 @@ for line in lines[1:]:
           and s["matched_note_id"] == hit.iloc[0]["matched_note_id"])
     check(f"{s['route']} {s['week_of']} matches the sample row", ok)
 
-# ---------- 4. trap scenarios through the real gate ----------
+#trap scenarios through the real gate
 print("\n[4] Trap scenarios (hypothetical rows through the real retrieval + gate)")
 for r in pd.read_csv(EVAL_DIR / "scenarios.csv", keep_default_na=False).itertuples():
     row = {"route": r.route, "week_of": pd.Timestamp(r.week_of),
