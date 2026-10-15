@@ -158,7 +158,6 @@ no per-token charge. LLM calls scale with the number of notes, not with shipment
 - The 1.5B model labeled one note (N010) wrongly (9/10); the keyword check caught it. A larger model would help.
 - Short and Long route types have only 2 routes, so "similar routes" there is a single other route.
 - Mumbai-Pune is structurally above its peers (~12% typical), so its peer gap is partly normal.
-- Stretch goal (plain-English Q&A over findings) is not implemented.
 
 ## Layout
 `run.py` entry point - `src/` logic - `tests/` unit tests - `eval/` labeled checks and scenarios -
