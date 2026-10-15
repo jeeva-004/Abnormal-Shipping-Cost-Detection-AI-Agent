@@ -3,10 +3,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pandas as pd  # noqa: E402
+import pandas as pd  
 
-from src import config, flagging, gate, metrics, notes, usage  # noqa: E402
-from src.retrieval import NoteIndex  # noqa: E402
+from src import config, flagging, gate, metrics, notes, usage  
+from src.retrieval import NoteIndex
 
 use_cache = "--no-cache" not in sys.argv
 print(f"model={config.LLM_MODEL}  cache={'on' if use_cache else 'off'}\n")

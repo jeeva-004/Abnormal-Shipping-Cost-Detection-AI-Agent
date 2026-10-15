@@ -6,9 +6,9 @@ from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pandas as pd  # noqa: E402
+import pandas as pd  
 
-from src import config, metrics  # noqa: E402
+from src import config, metrics  
 
 w = metrics.build_metrics()
 config.OUTPUT_DIR.mkdir(exist_ok=True)
@@ -20,7 +20,7 @@ print("route types:", w.groupby("route_type")["route"].unique().apply(list).to_d
 print("first week has no history:", w[w["n_prior_weeks"] == 0]["own_hist_avg"].isna().all())
 
 
-# ---- Independent recomputation in plain Python (no pandas) ----
+#Independent recomputation in plain Python (no pandas)
 def monday(d):
     return d - timedelta(days=d.weekday())
 
@@ -58,7 +58,7 @@ for route, wk in checks:
     print(f"{'MATCH' if match else 'MISMATCH'}  {route} {wk}: cost={c:.4f} own={own:.4f} peer={peer:.4f}")
 print("\nINDEPENDENT CHECK PASSED" if ok else "\nINDEPENDENT CHECK FAILED")
 
-# ---- The three illustrative rows from the sample file ----
+# the three illustrative rows from the sample file
 print("\nSample-file route-weeks (the sample values are illustrative; just compare):")
 for route, wk in [("Delhi-Jaipur", "2024-11-11"), ("Ahmedabad-Mumbai", "2025-01-20"),
                   ("Mumbai-Pune", "2025-09-15")]:

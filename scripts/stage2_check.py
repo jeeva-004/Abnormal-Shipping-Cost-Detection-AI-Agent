@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src import config, flagging, metrics  # noqa: E402
+from src import config, flagging, metrics 
 
 w = flagging.flag_candidates(metrics.build_metrics())
 cands = w[w["is_candidate"]]
